@@ -1,0 +1,76 @@
+@import "./public.css";
+
+body {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    padding: 8px;
+}
+
+.empty-cart {
+    width: 30%;
+    margin: 100px auto;
+}
+
+.cart {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ff6040;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+
+    >img {
+        width: 115px;
+        height: 100%;
+        border-radius: 5px;
+    }
+
+    >h6 {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        top: 5px;
+        left: 130px;
+    }
+
+    >span {
+        position: absolute;
+        color: #ff6040;
+        bottom: 20px;
+        left: 130px;
+    }
+
+    >del {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 15px;
+        height: 15px;
+        background-color: #ff6040;
+        color: #fff;
+        text-align: center;
+        line-height: 12px;
+        border-radius: 50%;
+    }
+
+    input,
+    button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background-color: #fff;
+        border: 1px solid #ff6040;
+        color: #ff6040;
+        border-radius: 3px;
+    }
+
+    input {
+        bottom: 40px;
+        width: 40px;
+        text-align: center;
+    }
+}

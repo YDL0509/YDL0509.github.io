@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/index.js"></script>
+    <script src="./js/jquery-3.1.0.min.js"></script>
+    <script src="./js/art-template.js"></script>
+    <script src="./data/home.js"></script>
+</head>
+
+<body>
+    <!-- 入口文件 -->
+    <!-- 头部 -->
+    <header>
+        小U商城
+    </header>
+    <!-- 主体 -->
+    <!-- 
+        iframe： html 内联框架元素
+        它能够另一个 html 页面嵌入到当前页面中。
+    -->
+    <iframe src="./home/index.html" frameborder="0" name="content"></iframe>
+    <!-- 页脚功能按钮 -->
+    <footer>
+        <!-- 
+            iconfont 字体图标
+            可以当作字体设置这个图标的样式
+            color,font-size...
+        -->
+        <a class="active" href="./home/index.html" target="content">
+            <!-- 
+                iconfont 的使用，标签里面要有类名，
+                类名必须包含iconfont + 图标的名字（去iconfont,我的项目里复制代码）
+             -->
+            <i class="iconfont icon-shouye-shouye"></i>
+            <span>
+                商城
+            </span>
+        </a>
+        <a href="./class/index.html" target="content">
+            <i class="iconfont icon-mulu"></i>
+            <span>
+                资讯
+            </span>
+        </a>
+        <a href="./cart/index.html" target="content">
+            <i class="iconfont icon-gouwuche"></i>
+            <span>
+                购物车
+            </span>
+        </a>
+        <a href="./my/index.html" target="content">
+            <i class="iconfont icon-wode"></i>
+            <span>
+                我
+            </span>
+        </a>
+    </footer>
+</body>
+
+<script>
+    $("footer>a").on("click", function () {
+        // 用来存放标题的数组
+        var titleArr = ["小U商城", "资讯", "购物车", "我"];
+        // $(this).index() 被点击的按钮的索引值
+        var num = $(this).index()
+        // console.log(num);
+        // 找到所有的a标签
+        var as = $("footer>a");
+
+        // for是用来做循环的
+        // as.length 获取a标签的数量
+        for (let i = 0; i < as.length; i++) {
+            var a = as[i];
+            // console.log(a);
+            // 做判断，判断哪个a是被点击的
+            if (i == num) {
+                // 找到被点击的按钮
+                // 并给这个按钮添加类名active
+                $(a).addClass("active");
+                // 修改标题
+                $("header").text(titleArr[i]);
+            } else {
+                // 不是被点击的按钮，移除类名active
+                $(a).removeClass("active");
+            }
+        }
+    })
+</script>
+
+</html>

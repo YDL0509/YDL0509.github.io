@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <script src="../data/home.js"></script>
+    <script src="../js/art-template.js"></script>
+    <script src="../js/FZStorage.js"></script>
+</head>
+
+<body>
+    <!-- 1、头部和导航 -->
+    <!-- div#top 回车 -->
+    <div id="top">
+        <!-- 头部 -->
+        <header>
+            <span class="iconfont icon-dingxiang"></span>
+            <h1><img src="../img/logo.jpg" alt=""></h1>
+            <div>
+                <i class="iconfont icon-fangdajing"></i>
+                <input type="text" placeholder="按内容搜索">
+            </div>
+            <span class="iconfont icon-shangpu"></span>
+        </header>
+        <!-- 导航 -->
+        <nav>
+            <ul>
+                <li class="cur">推荐</li>
+                <li>女装</li>
+                <li>鞋包</li>
+                <li>居家</li>
+                <li>母婴</li>
+                <li>美妆</li>
+            </ul>
+            <div> 分类</div>
+        </nav>
+    </div>
+    <!-- 2、轮播图 -->
+    <div class="all" id='all'>
+        <div class="screen" id="screen">
+            <ul id="ul">
+                <li><img src="../img/banner.jpg" alt=""></li>
+                <li><img src="../img/banner.jpg" alt=""></li>
+                <li><img src="../img/banner.jpg" alt=""></li>
+                <li><img src="../img/banner.jpg" alt=""></li>
+                <!-- <li><img src="../img/banner.jpg" alt=""></li> -->
+            </ul>
+            <ol></ol>
+            <div id="arr">
+                <span id="left"></span>
+                <span id="right"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 3、导航列表 -->
+    <div class="icon">
+        <ul>
+            <li><a href="javascript:;"><img src="../img/icon_1.jpg" alt="">限时秒杀</a></li>
+            <li><a href="javascript:;"><img src="../img/icon_2.jpg" alt="">畅销商品</a></li>
+            <li><a href="javascript:;"><img src="../img/icon_3.jpg" alt="">品质大牌</a></li>
+            <li><a href="javascript:;"><img src="../img/icon_4.jpg" alt="">小U自营</a></li>
+            <li><a href="javascript:;"><img src="../img/icon_5.jpg" alt="">积分商城</a></li>
+        </ul>
+    </div>
+    <!-- 4、主体 -->
+    <div class="shop">
+        <div class="shop1">
+            <h3>限时秒杀</h3>
+            <p>每天0点场, 好货秒不停</p>
+            <div>
+                <span>05</span>:<span>20</span>:<span>48</span>
+            </div>
+            <a href="javascript:;">更多 </a>
+        </div>
+        <div class="shop2">
+            <div class="shop2-1">
+                <h3>品牌上新</h3>
+                <p>9点整, 抢大牌</p>
+                <div>疯抢红包&nbsp;</div>
+            </div>
+            <div class="shop2-2">
+                <h3>日用好物</h3>
+                <p>愿君多采采</p>
+                <img src="../img/mark_2.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="shop-data">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="main">
+        <script id="temp" type="text/html">
+        <div>
+            <img src="{{image}}" alt="">
+            <p>
+                {{each props as item}}
+                <span>{{item}} </span>
+                {{/each}}
+            </p>
+            <span>￥{{price}} </span>
+            <button class="add" onclick="add()" index="{{index}}">加入购物车 </button>
+            <button class="pur">购买</button>
+        </div></div>
+    </script>
+
+        <script>
+            var mainStr = '';
+            // for 循环语句
+            // list 是导入的数据
+            for (var i = 0; i < list.length; i++) {
+                mainStr += template("temp", Object.assign(list[i], {
+                    index: i
+                }))
+            }
+            console.log(list);
+            console.log(mainStr);
+            let main = document.getElementById('main');
+            // console.log(main);
+            main.innerHTML = mainStr;
+            console.log(main);
+            function add() {
+                var index = event.target.getAttribute('index');
+                // console.log(event.target.getAttribute('index'));
+                // console.log(list[index]);
+
+                // 创建被存储数组
+                let dataArr = "";
+                dataArr = FZStorage.getLoc("dataArr");
+                console.log("dataArr", dataArr);
+                if (!dataArr) {
+                    dataArr = []
+                }
+
+                // 把要保存的数据添加到数组
+                dataArr.push(list[index]);
+                // localStorage.setItem 把数据存储到内存中
+                // 第一个参数是key  也就是要保存的数据的名字
+                // 第二个参数是要保存的数据
+                // localStorage.setItem("dataArr", dataArr);
+                FZStorage.setLoc("dataArr", dataArr);
+            }
+        </script>
+</body>
+
+<script>
+    // console.log(list);
+    var mainStr = '';
+    // for 循环语句
+    // list 是我们导入的数据
+    for (var i = 0; i < list.length; i++) {
+        // += 在自身原有的基础上再加上一些内容
+        // i +=1 => i = i+1
+        // Object.assign 是合并对象用的，将两个对象合并成一个
+        mainStr += template("temp", Object.assign(list[i], {
+            index: i
+        }))
+    }
+
+    let main = document.getElementById("main");
+    main.innerHTML = mainStr;
+</script>
+
+<script>
+    //1.老三步。获取相关元素。
+    var box = document.getElementById("all");
+    var ul = box.children[0].children[0];
+    var ol = box.children[0].children[1];
+    var ulLiArr = ul.children;
+    //2.补齐相互盒子
+    //1.复制第一张图片所在的li，填入所在的ul中。
+    var newLi = ulLiArr[0].cloneNode(true);
+    ul.appendChild(newLi);
+    //2.生成相关的ol中的li。
+    for (var i = 0; i < ulLiArr.length - 1; i++) {
+        var newOlLi = document.createElement("li");
+        newOlLi.innerHTML = i + 1;
+        ol.appendChild(newOlLi);
+    }
+    //3.点亮第一个ol中的li。
+    var olLiArr = ol.children;
+    ol.children[0].className = "current";
+    //3.鼠标放到小方块儿上，轮播图片。
+    for (var i = 0; i < olLiArr.length; i++) {
+        olLiArr[i].index = i;
+        olLiArr[i].onmouseover = function () {
+            for (var j = 0; j < olLiArr.length; j++) {
+                olLiArr[j].className = "";
+            }
+            olLiArr[this.index].className = "current";
+            animate(ul, -this.index * ul.children[0].offsetWidth);
+            key = square = this.index;
+        }
+    }
+    //4.添加定时器。
+    var timer = null;
+    var key = 0;
+    var square = 0;
+    timer = setInterval(autoPlay, 1000);
+
+
+    function autoPlay() {
+        key++;
+        square++;
+        if (key > olLiArr.length) {
+            key = 1;
+            ul.style.left = 0;
+        }
+        animate(ul, -key * ul.children[0].offsetWidth);
+
+
+        square = square > olLiArr.length - 1 ? 0 : square;
+        for (var j = 0; j < olLiArr.length; j++) {
+            olLiArr[j].className = "";
+        }
+        olLiArr[square].className = "current";
+    }
+    //5.鼠标移开开启定时器，鼠标放上去开启定时器。
+    box.onmouseover = function () {
+        clearInterval(timer);
+    }
+    box.onmouseout = function () {
+        timer = setInterval(autoPlay, 1000);
+    }
+    //6.左右切换的按钮。
+    var btnArr = box.children[0].children[2].children;
+    btnArr[0].onclick = function () {
+        key--;
+        square--;
+        if (key < 0) {
+            key = 4;
+            ul.style.left = -5 * ul.children[0].offsetWidth + "px";
+        }
+        animate(ul, -key * ul.children[0].offsetWidth);
+
+
+        square = square < 0 ? olLiArr.length - 1 : square;
+        for (var j = 0; j < olLiArr.length; j++) {
+            olLiArr[j].className = "";
+        }
+        olLiArr[square].className = "current";
+    }
+    btnArr[1].onclick = function () {
+        autoPlay();
+    }
+
+
+
+
+
+
+
+
+    //  基本封装
+    function animate(obj, target) {
+        clearInterval(obj.timer);
+        var speed = obj.offsetLeft < target ? 15 : -15;
+        obj.timer = setInterval(function () {
+            var result = target - obj.offsetLeft;
+            obj.style.left = obj.offsetLeft + speed + "px";
+            if (Math.abs(result) <= 15) {
+                obj.style.left = target + "px";
+                clearInterval(obj.timer);
+            }
+        }, 10);
+    }
+
+
+
+
+</script>
+
+</html>

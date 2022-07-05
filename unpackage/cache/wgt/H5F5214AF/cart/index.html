@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/cart.css">
+    <script src="../js/art-template.js"></script>
+    <script src="../js/FZStorage.js"></script>
+</head>
+
+<body>
+    <img src="https://img11.360buyimg.com/jdphoto/s180x180_jfs/t18163/292/540553659/74408/adeb7463/5a93c51cN3bb5e37b.png" alt="" class="empty-cart">
+
+</body>
+<script id="temp" type="text/html">
+        <div class="cart">
+            <del onclick="del()" signGoodsId="{{signGoodsId}}">×</del>
+            <img src="{{image}}" alt="">
+            <h6>{{title}}</h6>
+            <span>价格: ￥{{price}}</span>
+            <input type="number" value="1">
+            <button>购买</button>
+        </div>
+    </script>
+<script>
+
+    // 取出数据
+    let arr = FZStorage.getLoc("dataArr");
+    var htmlStr = '';
+    console.log(arr);
+    for (var i = 0; i < arr.length; i++) {
+        htmlStr += template("temp", arr[i])
+    }
+    document.body.innerHTML = htmlStr;
+    if(arr == undefined || arr.length <= 0) {
+        document.body.innerHTML = '<img src="https://img11.360buyimg.com/jdphoto/s180x180_jfs/t18163/292/540553659/74408/adeb7463/5a93c51cN3bb5e37b.png" alt="" class="empty-cart">';
+    }
+    function del() {
+        // 找到要删除的商品的id
+        var id = event.target.getAttribute('signGoodsId');
+        for (var i = 0; i < arr.length; i++) {
+            // console.log(arr[i].signGoodsId,id)
+            if(arr[i].signGoodsId === id) {
+                // 将对应的商品删除
+                // splice 数组的删除
+                // 第一个参数: 找到在数组中的下标
+                // 第二个参数: 删除的数量
+                arr.splice(arr.findIndex(e=>e.signGoodsId === id), 1)
+            }
+        }
+        // 重新存入数据
+        FZStorage.setLoc("dataArr", arr);
+        // 刷新页面
+        location.reload();
+    }
+</script>
+
+</html>

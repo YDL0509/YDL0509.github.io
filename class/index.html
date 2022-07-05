@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/art-template.js"></script>
+    <script src="../data/news.js"></script>
+    <link rel="stylesheet" href="../css/class.css">
+    <link rel="stylesheet" href="../css/public.css">
+</head>
+
+<body>
+    <!--  -->
+    <div id="main">
+        <script id="temp" type="text/html">
+            <!--  -->
+            {{each result.data as item}}
+        <a href="{{item.url}}" class="news">
+            <img src="https:{{item.img}}" alt="">
+            <h3>{{item.topic}}</h3>
+            <span>
+                {{item.source}}
+                {{item.date}}
+            </span>
+        </a>
+        {{/each}}
+        </script>
+    </div>
+
+    <script>
+        var mainStr = '';
+        mainStr = template("temp", news);
+        console.log(news);
+        let main = document.getElementById('main');
+        main.innerHTML = mainStr;
+    </script>
+</body>
+
+</html>
